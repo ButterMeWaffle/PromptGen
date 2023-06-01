@@ -31,8 +31,13 @@
               <div clas="col-4">
                 <mat-checkbox class="example-margin" [(ngModel)]="option.Extras.RandomAmount" (change)="saveOptions()">Use random amount</mat-checkbox>
               </div>
-              
-              <p>{{option.NumOptionsToUse}}</p>
+              <div class="row">
+                <mat-chip-listbox >
+                  <mat-chip *ngFor="let o of option.Options">
+                    {{o}}
+                  </mat-chip>
+                </mat-chip-listbox>
+              </div>
             </mat-expansion-panel>
           </mat-accordion>
         </mat-expansion-panel>
