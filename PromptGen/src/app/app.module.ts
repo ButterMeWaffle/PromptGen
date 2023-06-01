@@ -14,12 +14,15 @@ import { OptionsService } from './shared/services/options.service';
 import { ResultsService } from './shared/services/results.service';
 import { HttpClientModule } from '@angular/common/http';
 import { MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material/snack-bar';
+import { SavedPromptsComponent } from './saved-prompts/saved-prompts.component';
+import { SavedService } from './shared/services/saved.service';
 
 @NgModule({
   declarations: [
     AppComponent,
     OptionsManagerComponent,
-    GeneratorComponent
+    GeneratorComponent,
+    SavedPromptsComponent
   ],
   imports: [
     BrowserModule,
@@ -32,7 +35,7 @@ import { MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material/snack-bar';
     ReactiveFormsModule,
     ClipboardModule
   ],
-  providers: [OptionsService, ResultsService, {provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: {duration: 2500}}],
+  providers: [OptionsService, ResultsService, SavedService, {provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: {duration: 2500}}],
   exports: [MaterialModule],
   bootstrap: [AppComponent]
 })
