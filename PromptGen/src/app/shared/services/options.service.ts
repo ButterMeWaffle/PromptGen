@@ -2,32 +2,39 @@ import { Injectable, OnInit } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import { Observable, throwError } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
-import { OptionsList } from '../interfaces/options-list-type';
+import { OptionsList } from '../interfaces/options-list.interface';
 
 @Injectable({
   providedIn: 'root'
 })
 export class OptionsService implements OnInit {
 
-  public OptionsUrl: string = "../../assets/options.json";
-  public OptionsList!: OptionsList;
+  public OptionsUrl: string = "./../../assets/options.json";
+  public OptionsList: OptionsList = {
+    Front: [],
+    Middle: [],
+    End: [],
+    Negative: []
+  };
   
 
   constructor(private http: HttpClient) { }
 
   ngOnInit() {
-    this.OptionsList = this.LoadOptions();
+    console.log("=====================Options List=====================")
+    
     console.log(this.OptionsList);
   }
 
   /**
    * LoadOptions from options.json
    */
-  public LoadOptions(): any {
-    return this.http.get<OptionsList>(this.OptionsUrl).subscribe((result: any) => {
+  public LoadOptions = (): any => {
+    console.log('------LoadOptions---------')
+    this.http.get<OptionsList>(this.OptionsUrl).subscribe((result: any) => {
       console.log(result);
-      return result;
-    }
+      return this.OptionsList = result;
+      }
     );
   }
   
@@ -53,10 +60,62 @@ export class OptionsService implements OnInit {
    * 0 = Front
    * 1 = Middle
    * 2 = End
+   * 3 = Negative
    */
-  public AddOption(option: string, position: number): boolean {
+  public AddOption = (option: string, position: number): OptionsList => {
+    switch (position) {
+      case 0:
 
-    return true
+        this.OptionsList.Front.push(option);
+        break;
+
+      case 1:
+        this.OptionsList.Middle.push(option);
+        break;
+
+      case 2:
+        this.OptionsList.End.push(option);
+        break;
+
+      case 3:
+        this.OptionsList.Negative.push(option);
+        break;
+    
+      default:
+        break;
+    }
+    
+    return this.OptionsList
+  }
+
+  public DeleteOption = (option: string, position: number): OptionsList => {
+    let index: number = 0;
+    switch (position) {
+      case 0:
+        index = this.OptionsList.Front.indexOf(option);
+        this.OptionsList.Front.splice(index, 1);
+        break;
+
+      case 1:
+        index = this.OptionsList.Front.indexOf(option);
+        this.OptionsList.Front.splice(index, 1);
+        break;
+
+      case 2:
+        index = this.OptionsList.Front.indexOf(option);
+        this.OptionsList.Front.splice(index, 1);
+        break;
+
+      case 3:
+        index = this.OptionsList.Front.indexOf(option);
+        this.OptionsList.Front.splice(index, 1);
+        break;
+    
+      default:
+        break;
+    }
+    
+    return this.OptionsList
   }
 
   /**

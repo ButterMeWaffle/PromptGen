@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { OptionsService } from '../shared/services/options.service';
-import { OptionsList } from '../shared/interfaces/options-list-type';
+import { OptionsList } from '../shared/interfaces/options-list.interface';
 import { FormControl } from '@angular/forms';
+import { MatChipInputEvent } from '@angular/material/chips';
 
 @Component({
   selector: 'app-options-manager',
@@ -9,28 +10,32 @@ import { FormControl } from '@angular/forms';
   styleUrls: ['./options-manager.component.css']
 })
 export class OptionsManagerComponent implements OnInit  {
-  public options: OptionsList[] = JSON.parse(this.optionsService.LoadOptions());
+  public options: OptionsList = this.optionsService.LoadOptions();
   frontControl = new FormControl(['front']);
 
   constructor(private optionsService: OptionsService) { }
 
   ngOnInit() {
-    // this.options = JSON.parse(this.optionsService.LoadOptions());
+    console.log('OptionsManagerComponent');
+    console.log(this.optionsService.LoadOptions())
     console.log(this.options);
   }
 
-  removeKeyword(option: string, position: number) {
-    // const index = this.options.Front.indexOf(option);
-    // if (index >= 0) {
-    //   this.options.splice(index, 1);
-    // }
+  public removeKeyword (option: string, position: number): void  {
+    this.options = this.optionsService.DeleteOption(option, position);
   }
 
-  add(event: any) {
-    // const index = this.options.fr.indexOf(option);
-    // if (index >= 0) {
-    //   this.options.splice(index, 1);
-    // }
+  public add = (event: MatChipInputEvent, position: number): void => {
+    const value = (event.value || '').trim();
+    console.log(value);
+    console.log(this.options.Front);
+    // Add our keyword
+    if (value) {
+      this.options = this.optionsService.AddOption(value, position);
+    }
+
+    // Clear the input value
+    event.chipInput!.clear();
   }
 
   
