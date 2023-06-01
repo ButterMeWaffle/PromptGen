@@ -33,3 +33,7 @@ mat-form-field {
 mat-card.mat-mdc-card, mat-expansion-panel.mat-expansion-panel, .mdc-text-field--filled:not(.mdc-text-field--disabled) {
     background-color: lightgray;
 }
+
+.savedPage .mat-grid-tile-content mat-card mat-card-content .mat-mdc-form-field-subscript-wrapper {
+    display:none!important;
+}

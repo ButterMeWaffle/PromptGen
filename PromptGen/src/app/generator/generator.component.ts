@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { Result } from '../shared/classes/result';
 import { OptionsService } from '../shared/services/options.service';
-import { ResultsService } from '../shared/services/results.service';
 import { Options } from '../shared/classes/options';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Saved } from '../shared/classes/saved';
+import { SavedService } from '../shared/services/saved.service';
+import { SavedPromptsComponent } from '../saved-prompts/saved-prompts.component';
 
 @Component({
   selector: 'app-generator',
@@ -11,15 +12,19 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   styleUrls: ['./generator.component.scss']
 })
 export class GeneratorComponent implements OnInit {
-  public results: Result[] = [];
+  public savedList: Saved[] = [];
   public panelOpenState = false;
   public OptionsList: Options[] = []
 
-  constructor(private optionsService: OptionsService, private resultsService: ResultsService, private _snackBar: MatSnackBar) { }
+  constructor(
+    private optionsService: OptionsService, 
+    private _snackBar: MatSnackBar,
+    private savedService: SavedService
+    ) { }
 
   ngOnInit() {
-    this.OptionsList = this.optionsService.LoadOptions();
-    this.results = this.resultsService.LoadResults();
+    this.OptionsList = this.optionsService.GetOptions();
+    this.savedList = this.savedService.GetSaved();
   }
 
   public generatePrompt = () => {
@@ -53,11 +58,7 @@ export class GeneratorComponent implements OnInit {
       }
     });
     
-    this.results = this.resultsService.AddResult(generatedPrompt);
-  }
-
-  public deleteResult = (i: number) => {
-    this.results = this.resultsService.DeleteResult(i);
+    this.savedList = this.savedService.AddSaved(generatedPrompt);
   }
   
   public randomUniqueIntFromInterval(min: number, max: number, usedIDs: number[]): number { // min and max included 
@@ -71,10 +72,6 @@ export class GeneratorComponent implements OnInit {
   public saveOptions = () => {
     this.optionsService.SaveOptionsList();
     this._snackBar.open("The save worked! Wohooo");
-  }
-
-  public copied (): void {
-    this._snackBar.open("Copied to clipboard");
   }
 
 }

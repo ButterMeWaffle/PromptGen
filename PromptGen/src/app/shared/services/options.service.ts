@@ -18,6 +18,7 @@ export class OptionsService implements OnInit {
   constructor(private http: HttpClient) { }
 
   ngOnInit() {
+    if (this.OptionsList.length === 0) this.LoadOptions();
   }
 
   /**
@@ -32,6 +33,11 @@ export class OptionsService implements OnInit {
     } else {
       this.OptionsList = JSON.parse(localOptions);
     }
+    return this.OptionsList;
+  }
+
+  public GetOptions = (): any => {
+    if (this.OptionsList.length === 0) return this.LoadOptions();
     return this.OptionsList;
   }
   
