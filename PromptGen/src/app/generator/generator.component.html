@@ -20,17 +20,19 @@
                   Total # of options = {{option.Options.length}} || # of inluded options = {{option.NumOptionsToUse}}
                 </mat-panel-description>
               </mat-expansion-panel-header>
-              <div clas="col-6">
+              <div class="row">
+              <div class="col-12">
                 <mat-slider min="0" [max]="option.Options.length" step="1" showTickMarks discrete>
                     <input matSliderThumb [(ngModel)]="option.NumOptionsToUse" (valueChange)="saveOptions()">
                 </mat-slider>
               </div>
-              <div clas="col-4">
-                <mat-checkbox class="example-margin" [(ngModel)]="option.Extras.UseAll" (change)="saveOptions()">Use all</mat-checkbox>
+              <div class="col-12">
+                <mat-checkbox [(ngModel)]="option.Extras.UseAll" (change)="saveOptions()" matTooltipPosition="right" matTooltip="Use all trumps selected count and random amounts">Use all</mat-checkbox>
               </div>
-              <div clas="col-4">
-                <mat-checkbox class="example-margin" [(ngModel)]="option.Extras.RandomAmount" (change)="saveOptions()">Use random amount</mat-checkbox>
+              <div class="col-12">
+                <mat-checkbox [(ngModel)]="option.Extras.RandomAmount" (change)="saveOptions()" matTooltipPosition="right" matTooltip="Random amount trumps selected count">Use random amount</mat-checkbox>
               </div>
+            </div>
               <div class="row">
                 <mat-chip-listbox >
                   <mat-chip *ngFor="let o of option.Options">

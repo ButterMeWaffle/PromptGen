@@ -12,6 +12,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatGridListModule } from '@angular/material/grid-list';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 
 @NgModule({
@@ -29,7 +30,8 @@ import { MatGridListModule } from '@angular/material/grid-list';
     MatExpansionModule,
     MatMenuModule,
     MatCheckboxModule,
-    MatGridListModule
+    MatGridListModule,
+    MatTooltipModule
   ],
   exports: [
     MatCardModule,
@@ -44,7 +46,8 @@ import { MatGridListModule } from '@angular/material/grid-list';
     MatExpansionModule,
     MatMenuModule,
     MatCheckboxModule,
-    MatGridListModule
+    MatGridListModule,
+    MatTooltipModule
   ]
 })
 export class MaterialModule { }

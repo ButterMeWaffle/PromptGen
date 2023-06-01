@@ -2,7 +2,7 @@
 
 
 html, body { height: 100%; }
-body { 
+body {
     margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif;
     background-color: gray;
 }
@@ -22,9 +22,9 @@ body {
 header {
     background-color: darkgrey;
 }
-h1, h2, h3, h4, h5, h6 {
-    color:white;
-}
+// h1, h2, h3, h4, h5, h6 {
+//     color:white;
+// }
 
 mat-form-field {
     background-color: gray;
