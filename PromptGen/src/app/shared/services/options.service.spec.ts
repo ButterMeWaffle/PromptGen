@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 
-import { OptionsServiceService } from './options-service.service';
+import { OptionsServiceService } from './options.service';
 
 describe('OptionsServiceService', () => {
   let service: OptionsServiceService;
