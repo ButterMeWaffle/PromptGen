@@ -1,13 +1,13 @@
-docker build -t stable-diffusion-promt-gen:v1.0.0 -f ./Dockerfile .
+docker build -t stable-diffusion-prompt-gen:v1.0.0 -f ./Dockerfile .
 
 @REM latest
-ECHO building buttermewaffle/stable-diffusion-promt-gen:latest....
-docker build -f Dockerfile . -t buttermewaffle/stable-diffusion-promt-gen:latest   
+ECHO building buttermewaffle/stable-diffusion-prompt-gen:latest....
+docker build -f ./Dockerfile . -t buttermewaffle/stable-diffusion-prompt-gen:latest   
 if %errorlevel% neq 0 exit /b %errorlevel%
 
-ECHO pushing buttermewaffle/stable-diffusion-promt-gen:latest....
-docker push buttermewaffle/stable-diffusion-promt-gen:latest   
+ECHO pushing buttermewaffle/stable-diffusion-prompt-gen:latest....
+docker push buttermewaffle/stable-diffusion-prompt-gen:latest   
 
 
 
-docker run -p 8000:80 -d stable-diffusion-promt-gen:v1.0.0
+docker run -p 8000:80 -d stable-diffusion-prompt-gen:v1.0.0
