@@ -13,6 +13,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatInputModule } from '@angular/material/input';
 
 
 @NgModule({
@@ -31,7 +32,8 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     MatMenuModule,
     MatCheckboxModule,
     MatGridListModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatInputModule
   ],
   exports: [
     MatCardModule,
@@ -47,7 +49,8 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     MatMenuModule,
     MatCheckboxModule,
     MatGridListModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatInputModule
   ]
 })
 export class MaterialModule { }

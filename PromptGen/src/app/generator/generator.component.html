@@ -56,34 +56,9 @@
     </div>
 
     <div class="row">
-        <h2>Results</h2>
-        <mat-grid-list cols="2" rowHeight="2.3:1">
-          <mat-grid-tile *ngFor="let r of results; index as i;">
-            <mat-card class="resultCard">
-              <mat-card-header>
-              </mat-card-header>
-              <mat-card-content>
-              <p>{{r.prompt}}</p>
-              <mat-divider></mat-divider>
-              </mat-card-content>
-              <mat-card-actions>
-                <div class="col-4">
-                  <button mat-stroked-button color="warn" (click)="deleteResult(i)">Delete</button>
-                </div>
-                <div class="col-4 centerTxt">
-                  <p>Created on <br> {{r.createDate}}.</p>
-                </div>
-                <div class="col-4">
-                  <!-- <button mat-stroked-button color="warn" > -->
-                    <mat-icon class="copyIcon" aria-hidden="false" fontIcon="content_copy" (click)="copied()" [cdkCopyToClipboard]="r.prompt.toString()"></mat-icon>
-                  <!-- </button> -->
-                </div>
-              </mat-card-actions>
-              <mat-card-footer>
-                <mat-divider></mat-divider>
-              </mat-card-footer>
-          </mat-card>
-          </mat-grid-tile>
-        </mat-grid-list>
+      
+        <h2>Saved Results</h2>
+        <app-saved-prompts></app-saved-prompts>
+       
     </div>
 </div>

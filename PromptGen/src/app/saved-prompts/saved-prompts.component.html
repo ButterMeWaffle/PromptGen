@@ -1,0 +1,39 @@
+<div class="col-12 savedPage">
+    <h2>Edit Saved Prompts</h2>
+    <mat-grid-list cols="2" rowHeight="2:1">
+      <mat-grid-tile *ngFor="let r of savedList; index as i;">
+        <mat-card class="resultCard">
+          <mat-card-header>
+            <p>#{{r.id}}</p>
+          </mat-card-header>
+          <mat-card-content>
+          <!-- <p>{{r.prompt}}</p> -->
+          <mat-form-field>
+            <textarea matInput [(ngModel)]="r.prompt"></textarea>
+          </mat-form-field>
+          <mat-divider></mat-divider>
+          </mat-card-content>
+          <mat-card-actions>
+            <div class="col-1">
+              <mat-icon class="copyIcon" color="warn" matTooltip="No really" aria-hidden="false" fontIcon="delete" (click)="deleteSaved(i)" [cdkCopyToClipboard]="r.prompt.toString()"></mat-icon>
+            </div>
+            <div class="col-3">
+              
+            </div>
+            <div class="col-4 centerTxt">
+              <p>Created on <br> {{r.createDate}}.</p>
+            </div>
+            <div class="col-3">
+                <mat-icon class="copyIcon" color="blue" matTooltip="Save your updates" aria-hidden="false" fontIcon="edit_note" (click)="updateSaved(i)" [cdkCopyToClipboard]="r.prompt.toString()"></mat-icon>
+            </div>
+            <div class="col-1">
+                <mat-icon class="copyIcon" color="primary" matTooltip="Copy to clipboard" aria-hidden="false" fontIcon="content_copy" (click)="copied()" [cdkCopyToClipboard]="r.prompt.toString()"></mat-icon>
+            </div>
+          </mat-card-actions>
+          <mat-card-footer>
+            <mat-divider></mat-divider>
+          </mat-card-footer>
+      </mat-card>
+      </mat-grid-tile>
+    </mat-grid-list>
+</div>
