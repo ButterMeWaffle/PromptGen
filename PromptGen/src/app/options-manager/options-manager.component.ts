@@ -9,7 +9,7 @@ import { Options } from '../shared/classes/options';
 @Component({
   selector: 'app-options-manager',
   templateUrl: './options-manager.component.html',
-  styleUrls: ['./options-manager.component.css']
+  styleUrls: ['./options-manager.component.scss']
 })
 export class OptionsManagerComponent implements OnInit  {
   public options: Options[] = this.optionsService.LoadOptions();

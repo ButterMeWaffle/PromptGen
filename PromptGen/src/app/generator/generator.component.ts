@@ -8,7 +8,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 @Component({
   selector: 'app-generator',
   templateUrl: './generator.component.html',
-  styleUrls: ['./generator.component.css']
+  styleUrls: ['./generator.component.scss']
 })
 export class GeneratorComponent implements OnInit {
   public results: Result[] = [];
