@@ -16,14 +16,12 @@ export class ResultsService {
 
   ngOnInit() {
     this.ResultsList = this.LoadResults();
-    console.log(this.ResultsList);
   }
 
   /**
    * LoadOptions from options.json
    */
   public LoadResults = (): any => {
-    console.log('------LoadResults---------')
     let localOptions = localStorage.getItem("promptResults");
     if (!localOptions) {
       for (let index = 0; index < 1; index++) {
@@ -32,7 +30,6 @@ export class ResultsService {
     } else {
       this.ResultsList = JSON.parse(localOptions);
     }
-    console.log(this.ResultsList)
     return this.ResultsList;
   }
 

@@ -20,11 +20,9 @@ export class GeneratorComponent implements OnInit {
   ngOnInit() {
     this.OptionsList = this.optionsService.LoadOptions();
     this.results = this.resultsService.LoadResults();
-    console.log(this.results);
   }
 
   public generatePrompt = () => {
-    console.log("Generate the prompt !!!!!")
     let generatedPrompt = "";
     this.OptionsList.forEach(option => {
       if (option.Options.length !== 0) {
@@ -44,11 +42,7 @@ export class GeneratorComponent implements OnInit {
         }
         else {
           for (let index = 0; index < numToUse; index++) {
-            console.log(usedIDs);
-            console.log(option.Options);
             let randID = this.randomUniqueIntFromInterval(0, option.Options.length - 1, usedIDs);
-            console.log(randID)
-            console.log(option.Options[randID])
             usedIDs.push(randID);
             if (option.Title === "Negative" && index === 0) {
               generatedPrompt += "### "

@@ -18,16 +18,12 @@ export class OptionsService implements OnInit {
   constructor(private http: HttpClient) { }
 
   ngOnInit() {
-    console.log("=====================Options List=====================")
-    
-    console.log(this.OptionsList);
   }
 
   /**
    * LoadOptions from options.json
    */
   public LoadOptions = (): any => {
-    console.log('------LoadOptions---------')
     let localOptions = localStorage.getItem("promptOptions");
     if (!localOptions) {
       for (let index = 0; index < 10; index++) {
@@ -36,7 +32,6 @@ export class OptionsService implements OnInit {
     } else {
       this.OptionsList = JSON.parse(localOptions);
     }
-    console.log(this.OptionsList)
     return this.OptionsList;
   }
   

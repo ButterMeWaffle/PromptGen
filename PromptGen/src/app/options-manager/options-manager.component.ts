@@ -18,8 +18,6 @@ export class OptionsManagerComponent implements OnInit  {
   constructor(private optionsService: OptionsService, private _snackBar: MatSnackBar) { }
 
   ngOnInit() {
-    console.log('OptionsManagerComponent');
-    console.log(this.options);
   }
 
   public removeKeyword (option: string, position: number): void  {
@@ -28,7 +26,6 @@ export class OptionsManagerComponent implements OnInit  {
 
   public add = (event: MatChipInputEvent, position: number): void => {
     const value = (event.value || '').trim();
-    console.log(value);
     // Add our keyword
     if (value) {
       this.options = this.optionsService.AddOption(value, position);
