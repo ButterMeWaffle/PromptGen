@@ -1,4 +1,4 @@
-<!-- <div class="row"> -->
+<div class="ManagerBox">
     <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="center">
         <mat-tab label="{{section.Title}}" *ngFor="let section of options">
             <div class="row" *ngIf="section">
@@ -25,6 +25,6 @@
         </mat-tab>
     </mat-tab-group>
     <div class="row">
-        <button mat-button color="primary" (click)="saveAll()">Save All</button>
+        <button mat-raised-button color="primary" (click)="saveAll()">Save All</button>
     </div>
-<!-- </div> -->
+</div>

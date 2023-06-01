@@ -3,6 +3,7 @@ import { Result } from '../shared/classes/result';
 import { OptionsService } from '../shared/services/options.service';
 import { ResultsService } from '../shared/services/results.service';
 import { Options } from '../shared/classes/options';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-generator',
@@ -14,7 +15,7 @@ export class GeneratorComponent implements OnInit {
   public panelOpenState = false;
   public OptionsList: Options[] = []
 
-  constructor(private optionsService: OptionsService, private resultsService: ResultsService) { }
+  constructor(private optionsService: OptionsService, private resultsService: ResultsService, private _snackBar: MatSnackBar) { }
 
   ngOnInit() {
     this.OptionsList = this.optionsService.LoadOptions();
@@ -29,24 +30,31 @@ export class GeneratorComponent implements OnInit {
       if (option.Options.length !== 0) {
 
         let numToUse = option.NumOptionsToUse
-        if (option.Extras.UseAll) {
-          numToUse = option.Options.length - 1;
-        }
-        else if (option.Extras.RandomAmount) {
-          numToUse = this.randomUniqueIntFromInterval(0, option.Options.length - 1, []);
+         if (option.Extras.RandomAmount) {
+          numToUse = this.randomUniqueIntFromInterval(1, option.Options.length - 1, []);
         }
         let usedIDs: number[] = [];
-        for (let index = 0; index < numToUse; index++) {
-          console.log(usedIDs);
-          console.log(option.Options);
-          let randID = this.randomUniqueIntFromInterval(0, option.Options.length - 1, usedIDs);
-          console.log(randID)
-          console.log(option.Options[randID])
-          usedIDs.push(randID);
-          if (option.Title === "Negative" && index === 0) {
-            generatedPrompt += "### "
+        if (option.Extras.UseAll) {
+          for (let index = 0; index < option.Options.length; index++) {
+            if (option.Title === "Negative" && index === 0) {
+              generatedPrompt += "### "
+            }
+            generatedPrompt += option.Options[index] + ", ";
           }
-          generatedPrompt += option.Options[randID] + ", ";
+        }
+        else {
+          for (let index = 0; index < numToUse; index++) {
+            console.log(usedIDs);
+            console.log(option.Options);
+            let randID = this.randomUniqueIntFromInterval(0, option.Options.length - 1, usedIDs);
+            console.log(randID)
+            console.log(option.Options[randID])
+            usedIDs.push(randID);
+            if (option.Title === "Negative" && index === 0) {
+              generatedPrompt += "### "
+            }
+            generatedPrompt += option.Options[randID] + ", ";
+          }
         }
       }
     });
@@ -66,10 +74,13 @@ export class GeneratorComponent implements OnInit {
     return val;
   }
 
-
-
   public saveOptions = () => {
     this.optionsService.SaveOptionsList();
+    this._snackBar.open("The save worked! Wohooo");
+  }
+
+  public copied (): void {
+    this._snackBar.open("Copied to clipboard");
   }
 
 }

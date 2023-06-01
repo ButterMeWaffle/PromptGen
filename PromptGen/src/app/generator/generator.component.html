@@ -20,16 +20,16 @@
                   Total # of options = {{option.Options.length}} || # of inluded options = {{option.NumOptionsToUse}}
                 </mat-panel-description>
               </mat-expansion-panel-header>
-              <div clas="col-4">
+              <div clas="col-6">
                 <mat-slider min="0" [max]="option.Options.length" step="1" showTickMarks discrete>
                     <input matSliderThumb [(ngModel)]="option.NumOptionsToUse" (valueChange)="saveOptions()">
                 </mat-slider>
               </div>
               <div clas="col-4">
-                <mat-checkbox class="example-margin" [(ngModel)]="option.Extras.UseAll" (valueChange)="saveOptions()">Use all</mat-checkbox>
+                <mat-checkbox class="example-margin" [(ngModel)]="option.Extras.UseAll" (change)="saveOptions()">Use all</mat-checkbox>
               </div>
               <div clas="col-4">
-                <mat-checkbox class="example-margin" [(ngModel)]="option.Extras.RandomAmount" (valueChange)="saveOptions()">Use random amount</mat-checkbox>
+                <mat-checkbox class="example-margin" [(ngModel)]="option.Extras.RandomAmount" (change)="saveOptions()">Use random amount</mat-checkbox>
               </div>
               
               <p>{{option.NumOptionsToUse}}</p>
@@ -54,7 +54,16 @@
                 <mat-divider></mat-divider>
                 </mat-card-content>
                 <mat-card-actions>
+                  <div class="col-4">
                     <button mat-stroked-button color="warn" (click)="deleteResult(i)">Delete</button>
+                  </div>
+                  <div class="col-4">
+                  </div>
+                  <div class="col-4">
+                    <!-- <button mat-stroked-button color="warn" > -->
+                      <mat-icon class="copyIcon" aria-hidden="false" fontIcon="content_copy" (click)="copied()" [cdkCopyToClipboard]="r.prompt.toString()"></mat-icon>
+                    <!-- </button> -->
+                  </div>
                 </mat-card-actions>
                 <mat-card-footer>
                 <p>Created on {{r.createDate}}.</p>

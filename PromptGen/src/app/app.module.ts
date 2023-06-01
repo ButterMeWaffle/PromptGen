@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {ClipboardModule} from '@angular/cdk/clipboard';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -12,6 +13,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { OptionsService } from './shared/services/options.service';
 import { ResultsService } from './shared/services/results.service';
 import { HttpClientModule } from '@angular/common/http';
+import { MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [
@@ -27,9 +29,10 @@ import { HttpClientModule } from '@angular/common/http';
     HttpClientModule,
     NgbModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    ClipboardModule
   ],
-  providers: [OptionsService, ResultsService],
+  providers: [OptionsService, ResultsService, {provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: {duration: 2500}}],
   exports: [MaterialModule],
   bootstrap: [AppComponent]
 })
