@@ -1,6 +1,12 @@
 export interface OptionsList {
-    Front: string[];
-    Middle: string[];
-    End: string[];
+    Subject: string[];
+    Medium: string[];
+    Style: string[];
+    Artist: string[];
+    Website: string[];
+    Resolution: string[];
+    AdditionalDetails: string[];
+    Color: string[];
+    Lighting: string[];
     Negative: string[];
   };

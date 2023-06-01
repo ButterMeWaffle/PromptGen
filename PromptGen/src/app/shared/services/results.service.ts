@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Result } from '../classes/result';
+import * as resultsTemplate from '../../../assets/results.template.json'
 
 @Injectable({
   providedIn: 'root'
@@ -8,7 +9,7 @@ import { Result } from '../classes/result';
 export class ResultsService {
 
   public ResultsUrl: string = "../../assets/results.json";
-  public ResultsList!: Result;
+  public ResultsList: Result[] = [];
   
 
   constructor(private http: HttpClient) { }
@@ -21,11 +22,18 @@ export class ResultsService {
   /**
    * LoadOptions from options.json
    */
-  public LoadResults(): any {
-    return this.http.get<Result>(this.ResultsUrl).subscribe((result: any) => {
-      console.log(result);
-      return result;
-    });
+  public LoadResults = (): any => {
+    console.log('------LoadResults---------')
+    let localOptions = localStorage.getItem("promptResults");
+    if (!localOptions) {
+      for (let index = 0; index < 1; index++) {
+        this.ResultsList.push(resultsTemplate[index]);
+      }
+    } else {
+      this.ResultsList = JSON.parse(localOptions);
+    }
+    console.log(this.ResultsList)
+    return this.ResultsList;
   }
 
   /**
@@ -34,9 +42,26 @@ export class ResultsService {
    * 1 = Middle
    * 2 = End
    */
-  public AddOption(option: string, position: number): boolean {
-
-    return true
+  public AddResult = (prompt: string): Result[] => {
+    this.ResultsList.push(new Result(prompt));
+    this.SaveResultsList();
+    return this.ResultsList;
   }
+
+  public DeleteResult = (index: number): Result[] => {
+    this.ResultsList.splice(index, 1);
+    this.SaveResultsList();
+    return this.ResultsList
+  }
+
+  /**
+   * Saves the options list, call VerifyImport for obvious reasons 
+   */
+  public SaveResultsList = (): boolean => {
+    localStorage.setItem("promptResults", JSON.stringify(this.ResultsList));
+    return true;
+  }
+
+  
 
 }

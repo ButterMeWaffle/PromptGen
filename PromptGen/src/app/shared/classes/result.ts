@@ -5,6 +5,6 @@ export class Result {
 
     constructor (prompt: string){
         this.prompt = prompt;
-        this.createDate = new Date().toLocaleTimeString();
+        this.createDate = new Date().toLocaleDateString();
      }
 }

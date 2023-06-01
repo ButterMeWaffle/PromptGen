@@ -3,6 +3,8 @@ import { OptionsService } from '../shared/services/options.service';
 import { OptionsList } from '../shared/interfaces/options-list.interface';
 import { FormControl } from '@angular/forms';
 import { MatChipInputEvent } from '@angular/material/chips';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { Options } from '../shared/classes/options';
 
 @Component({
   selector: 'app-options-manager',
@@ -10,14 +12,13 @@ import { MatChipInputEvent } from '@angular/material/chips';
   styleUrls: ['./options-manager.component.css']
 })
 export class OptionsManagerComponent implements OnInit  {
-  public options: OptionsList = this.optionsService.LoadOptions();
+  public options: Options[] = this.optionsService.LoadOptions();
   frontControl = new FormControl(['front']);
 
-  constructor(private optionsService: OptionsService) { }
+  constructor(private optionsService: OptionsService, private _snackBar: MatSnackBar) { }
 
   ngOnInit() {
     console.log('OptionsManagerComponent');
-    console.log(this.optionsService.LoadOptions())
     console.log(this.options);
   }
 
@@ -28,7 +29,6 @@ export class OptionsManagerComponent implements OnInit  {
   public add = (event: MatChipInputEvent, position: number): void => {
     const value = (event.value || '').trim();
     console.log(value);
-    console.log(this.options.Front);
     // Add our keyword
     if (value) {
       this.options = this.optionsService.AddOption(value, position);
@@ -36,6 +36,14 @@ export class OptionsManagerComponent implements OnInit  {
 
     // Clear the input value
     event.chipInput!.clear();
+  }
+
+  public saveAll = () => {
+    if(this.optionsService.SaveOptionsList()) {
+      this._snackBar.open("The save worked! Wohooo");
+    } else {
+      this._snackBar.open("Shit, it didnt save. That cant be good");
+    }
   }
 
   

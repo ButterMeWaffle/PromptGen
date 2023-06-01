@@ -3,6 +3,8 @@ import {HttpClient} from "@angular/common/http";
 import { Observable, throwError } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
 import { OptionsList } from '../interfaces/options-list.interface';
+import { Options } from '../classes/options';
+import * as OptionsTemplate from '../../../assets/options.template.json';
 
 @Injectable({
   providedIn: 'root'
@@ -10,12 +12,7 @@ import { OptionsList } from '../interfaces/options-list.interface';
 export class OptionsService implements OnInit {
 
   public OptionsUrl: string = "./../../assets/options.json";
-  public OptionsList: OptionsList = {
-    Front: [],
-    Middle: [],
-    End: [],
-    Negative: []
-  };
+  public OptionsList: Options[] = [];
   
 
   constructor(private http: HttpClient) { }
@@ -31,11 +28,16 @@ export class OptionsService implements OnInit {
    */
   public LoadOptions = (): any => {
     console.log('------LoadOptions---------')
-    this.http.get<OptionsList>(this.OptionsUrl).subscribe((result: any) => {
-      console.log(result);
-      return this.OptionsList = result;
+    let localOptions = localStorage.getItem("promptOptions");
+    if (!localOptions) {
+      for (let index = 0; index < 10; index++) {
+        this.OptionsList.push(OptionsTemplate[index]);
       }
-    );
+    } else {
+      this.OptionsList = JSON.parse(localOptions);
+    }
+    console.log(this.OptionsList)
+    return this.OptionsList;
   }
   
   /**
@@ -62,58 +64,123 @@ export class OptionsService implements OnInit {
    * 2 = End
    * 3 = Negative
    */
-  public AddOption = (option: string, position: number): OptionsList => {
-    switch (position) {
-      case 0:
+  public AddOption = (option: string, position: number): Options[] => {
+    this.OptionsList[position].Options.push(option);
+    // switch (position) {
+    //   case 0:
 
-        this.OptionsList.Front.push(option);
-        break;
+    //     this.OptionsList.Subject.push(option);
+    //     break;
 
-      case 1:
-        this.OptionsList.Middle.push(option);
-        break;
+    //   case 1:
+    //     this.OptionsList.Medium.push(option);
+    //     break;
 
-      case 2:
-        this.OptionsList.End.push(option);
-        break;
+    //   case 2:
+    //     this.OptionsList.Style.push(option);
+    //     break;
 
-      case 3:
-        this.OptionsList.Negative.push(option);
-        break;
+    //   case 3:
+    //     this.OptionsList.Artist.push(option);
+    //     break;
+
+    //   case 4:
+    //     this.OptionsList.Website.push(option);
+    //     break;
+
+    //   case 5:
+    //     this.OptionsList.Resolution.push(option);
+    //     break;
+
+    //   case 6:
+    //     this.OptionsList.AdditionalDetails.push(option);
+    //     break;
+
+    //   case 7:
+    //     this.OptionsList.Color.push(option);
+    //     break;
+
+    //   case 8:
+    //     this.OptionsList.Lighting.push(option);
+    //     break;
+
+    //   case 9:
+    //     this.OptionsList.Remarks.push(option);
+    //     break;
+
+    //   case 10:
+    //     this.OptionsList.Negative.push(option);
+    //     break;
     
-      default:
-        break;
-    }
+    //   default:
+    //     break;
+    // }
     
     return this.OptionsList
   }
 
-  public DeleteOption = (option: string, position: number): OptionsList => {
-    let index: number = 0;
-    switch (position) {
-      case 0:
-        index = this.OptionsList.Front.indexOf(option);
-        this.OptionsList.Front.splice(index, 1);
-        break;
+  public DeleteOption = (option: string, position: number): Options[] => {
+    let index = this.OptionsList[position].Options.indexOf(option);
+    this.OptionsList[position].Options.splice(index, 1);
+    // switch (position) {
+    //   case 0:
+        
+    //     this.OptionsList.Subject.splice(index, 1);
+    //     break;
 
-      case 1:
-        index = this.OptionsList.Front.indexOf(option);
-        this.OptionsList.Front.splice(index, 1);
-        break;
+    //   case 1:
+    //     index = this.OptionsList.Medium.indexOf(option);
+    //     this.OptionsList.Medium.splice(index, 1);
+    //     break;
 
-      case 2:
-        index = this.OptionsList.Front.indexOf(option);
-        this.OptionsList.Front.splice(index, 1);
-        break;
+    //   case 2:
+    //     index = this.OptionsList.Style.indexOf(option);
+    //     this.OptionsList.Style.splice(index, 1);
+    //     break;
 
-      case 3:
-        index = this.OptionsList.Front.indexOf(option);
-        this.OptionsList.Front.splice(index, 1);
-        break;
+    //   case 3:
+    //     index = this.OptionsList.Artist.indexOf(option);
+    //     this.OptionsList.Artist.splice(index, 1);
+    //     break;
+
+    //   case 4:
+    //     index = this.OptionsList.Website.indexOf(option);
+    //     this.OptionsList.Website.splice(index, 1);
+    //     break;
+
+    //   case 5:
+    //     index = this.OptionsList.Resolution.indexOf(option);
+    //     this.OptionsList.Resolution.splice(index, 1);
+    //     break;
+
+    //   case 6:
+    //     index = this.OptionsList.AdditionalDetails.indexOf(option);
+    //     this.OptionsList.AdditionalDetails.splice(index, 1);
+    //     break;
+
+    //   case 7:
+    //     index = this.OptionsList.Color.indexOf(option);
+    //     this.OptionsList.Color.splice(index, 1);
+    //     break;
+
+    //   case 8:
+    //     index = this.OptionsList.Lighting.indexOf(option);
+    //     this.OptionsList.Lighting.splice(index, 1);
+    //     break;
+
+    //   case 9:
+    //     index = this.OptionsList.Remarks.indexOf(option);
+    //     this.OptionsList.Remarks.splice(index, 1);
+    //     break;
+
+    //   case 10:
+    //     index = this.OptionsList.Negative.indexOf(option);
+    //     this.OptionsList.Negative.splice(index, 1);
+    //     break;
     
-      default:
-        break;
-    }
+    //   default:
+    //     break;
+    // }
     
     return this.OptionsList
   }
@@ -121,9 +188,9 @@ export class OptionsService implements OnInit {
   /**
    * Saves the options list, call VerifyImport for obvious reasons 
    */
-  public SaveOptionsList(): boolean {
+  public SaveOptionsList = (): boolean => {
     if (!this.VerifyImport(this.OptionsList)) return false;
-
+    localStorage.setItem("promptOptions", JSON.stringify(this.OptionsList));
     return true;
   }
 
