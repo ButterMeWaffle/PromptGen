@@ -35,10 +35,13 @@ export class GeneratorComponent implements OnInit {
         else if (option.Extras.RandomAmount) {
           numToUse = this.randomUniqueIntFromInterval(0, option.Options.length - 1, []);
         }
-        
+        let usedIDs: number[] = [];
         for (let index = 0; index < numToUse; index++) {
-          let usedIDs: number[] = [];
+          console.log(usedIDs);
+          console.log(option.Options);
           let randID = this.randomUniqueIntFromInterval(0, option.Options.length - 1, usedIDs);
+          console.log(randID)
+          console.log(option.Options[randID])
           usedIDs.push(randID);
           if (option.Title === "Negative" && index === 0) {
             generatedPrompt += "### "
@@ -57,11 +60,9 @@ export class GeneratorComponent implements OnInit {
   
   public randomUniqueIntFromInterval(min: number, max: number, usedIDs: number[]): number { // min and max included 
     let val = Math.floor(Math.random() * (max - min + 1) + min)
-
-    if (usedIDs[val]) {
+    if (usedIDs.find(x => x = val)) {
       return this.randomUniqueIntFromInterval(min, max, usedIDs);
     }
-
     return val;
   }
 
